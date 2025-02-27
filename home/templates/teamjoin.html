@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="d-flex justify-content-center align-items-center" style="height: 100%; width: 100%;">
+    <article class="bg-light p-4 border rounded">
+
+        <p>Join Team: {{team.name}}</p>
+        {{message}}
+        {{msg}}
+        <p>Total Members: {{team.members.all|length}}</p>
+        {% if message %}
+        <form action="/teams/{{team.code}}"  method='post' >{% csrf_token %}<button type="submit" class="btn btn-success ">Join</button></form>{% endif %}
+    </article>
+</div>{% endblock body %}

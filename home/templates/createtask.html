@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Create{% endblock title %}
+{% block head %}
+<style>
+    form input,
+    form p {
+        width: 100%;
+        margin: 0.5vh auto;
+
+    }
+
+    label {
+        width: 100%;
+        font-weight: 600;
+        font-variant: small-caps;
+    }
+</style>
+{% endblock head %}
+{% block body %}
+
+<div class="d-flex justify-content-center align-items-center" style="height: 100%; width:100%">
+    <form action="/create" method="post" class="bg-light p-4" style="border-radius: 5px;">
+        <h5 class="text-center">Create Your Task</h5>
+        {%csrf_token%}
+        <table>
+            {{form.as_table}}
+        </table>
+        <button type="submit" class="btn btn-success d-flex m-auto">Create</button>
+    </form>
+</div></section>
+
+{% endblock body %}

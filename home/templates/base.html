@@ -1,0 +1,135 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #F5B7B1;
+        }
+
+        a,a:hover {
+            text-decoration: none;
+            color: black;
+        }
+
+        ul {
+            list-style: None;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            margin: 3vh 0 0 0;
+            font-size: 2vw;
+            font-variant: small-caps;
+            text-align: center;
+        }
+    </style>
+<style>
+    form input,
+    form p {
+        width: 100%;
+        margin: 0.5vh auto;
+
+    }
+
+    label {
+        width: 100%;
+        font-weight: 600;
+        font-variant: small-caps;
+    }
+</style>
+
+ 
+
+    <title>ToDoish {% block title %}{% endblock title %}</title>
+    {% block head %}{% endblock head %}
+</head>
+
+<body class="d-flex">
+    <aside class="d-flex flex-column  align-items-center  border-right border-secondary"
+        style="height: 100%; width: 15%;">
+        <div class="d-flex align-items-center justify-content-between">
+            <i class="bi bi-person-circle" style="font-size: 3vw;"></i>
+            <h3 class="ms-2 mb-0 ml-3" style="font-size: 2vw;">{{user|upper}}</h3>
+        </div>
+        <hr style="border-top: 0.5px solid black; width: 100%; margin: 0;">
+        <section class=" d-flex flex-column justify-content-between align-items-center py-2 p-0"
+            style="flex-grow: 1; width: 100%;">
+            <ul class="p-0" style="flex-grow: 1; width: 100%;">
+                <li><a href="/">Home</a></li>
+                <hr style=" width: 100%; margin: 0;">
+                <li><a href="/create">Create</a></li>
+                <hr style=" width: 100%; margin: 0;">
+                <li><a href="/tasklist">TaskList</a></li>
+                <hr style=" width: 100%; margin: 0;">
+                <li><a href="/team">Team</a></li>
+                <hr style=" width: 100%; margin: 0;">
+                <div class="dropdown d-flex justify-content-center m-3">
+                    <button class="btn btn-secondary dropdown-toggle w-50" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                         Theme
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="#" onclick="changeTheme('peachy')">Peachy</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="changeTheme('bluish')">Bluish</a></li>
+                    </ul>
+                </div>
+            </ul>
+
+            <a href='/auth/logout' class="btn btn-danger" style="width: fit-content;">Logout</a>
+        </section>
+
+    </aside>
+    <main class="d-flex flex-column justify-content-between" style="flex-grow: 1; height: 100%;">
+        <div style="flex-grow:1">
+            {% block body %}{% endblock body %}
+        </div>
+        <footer>
+            <p class="text-center " style="font-size: 1.3vw; font-variant: small-caps;"><b>All Rights Reserved To
+                    ToDoish</b></p>
+        </footer>
+
+    </main>
+    <script>
+        // Function to change theme
+        function changeTheme(theme) {
+            if (theme === 'peachy') {
+                document.body.style.backgroundColor = '#F5B7B1';  // Peachy color
+                document.body.style.color = '#333';  // Dark text color
+            } else if (theme === 'bluish') {
+                document.body.style.backgroundColor = '#99ccff';  // Bluish color
+                document.body.style.color = '#333';  // Dark text color
+            }
+        }
+    </script>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

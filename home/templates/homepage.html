@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}| HomePage{% endblock title %}
+{% block head %}
+<style>
+    .card-body h5 {
+        font-size: 1.3vw;
+        margin: 0;
+    }
+
+    .card-body p {
+        font-size: 1vw;
+        margin: 0;
+    }
+</style>
+
+{% endblock head %}
+{% block body %}
+<section style="flex-grow: 1;" class='d-flex flex-column justify-content-between'>
+<article class="border-bottom border-dark" style="height: 50%; margin: 0; padding: 2%; box-sizing: border-box;">
+    <h5>User Individual Task</h5>
+    {% if usertask %}
+    <div class="d-flex">
+        {% for task in usertask %}
+        <div class="card mx-2" style="width: 20%; height: 80%;">
+            <div class="card-body ">
+                <!-- Task Title -->
+
+                <h5 class="card-title m-1">{{task.title|slice:25}}....{% if task.mark_important %}
+                    <i class="bi bi-star m-0 ml-auto" style="font-size: 1.5vw; color: gold;"></i>{% endif %}
+                </h5>
+
+                <!-- Task Details -->
+                <p class="m-1"><strong>Start Date:</strong> {{task.start_date}}</p>
+                <p class="m-1"><strong>End Date:</strong> {{task.end_date}}</p>
+                <p class="m-1"><strong>Status:</strong> {{task.status}}</p>
+
+
+                <!-- View Task Button -->
+                <a href="#" class="btn btn-primary">View Task</a>
+            </div>
+        </div>{% endfor %}
+    </div>
+    {% else %}
+    <p class='m-5 text-center'>No User Individual Task Available . <a href="/create" class="btn btn-warning">Create
+            Now</a>
+        {% endif %}
+</article>
+<article style="height: 50%; margin: 0; padding: 2%; box-sizing: border-box;">
+    <h5>UserTeam Task</h5>
+    {% if teamtask %}
+    <div class="card " style="width: 20%; height: 80%;">
+        <div class="card-body ">
+            <!-- Task Title -->
+            <h5 class="card-title m-1">Task Title</h5>
+
+            <!-- Task Details -->
+            <p class="m-1"><strong>Start Date:</strong> 2025-02-26</p>
+            <p class="m-1"><strong>End Date:</strong> 2025-03-10</p>
+            <p class="m-1"><strong>Status:</strong> In Progress</p>
+
+            <!-- View Task Button -->
+            <a href="#" class="btn btn-primary">View Detail</a>
+        </div>
+    </div>
+    {% else %}
+    <p class='m-5 text-center'>No User Team Task Available . <a href="/team" class="btn btn-warning">Create
+            Now</a>
+        {% endif %}
+</article></section>
+
+
+{% endblock body %}

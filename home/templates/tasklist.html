@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}| TaskList{% endblock title %}
+{% block body %}
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">title</th>
+            <th scope="col">desc</th>
+            <th scope="col">start date</th>
+            <th scope="col">end date</th>
+            <th scope="col">status</th>
+            <th scope="col">Group</th>
+        </tr>
+    </thead>
+    <tbody class='tbody-light'>
+        {% if list %}
+        {% for task in list  %}
+        <tr>
+
+      
+        <td>{{task.title|slice:25}}</td>
+        <td>{{task.desc|slice:50}}</td>
+        <td>{{task.start_date}}</td>
+        <td>{{task.end_date}}</td>
+        <td>{{task.status}}</td>
+        <td>{% if task.team %}{{task.team}}{% else %}Individual{% endif %}</td>
+        
+         
+            
+        </tr>{% endfor %}
+        {% else %}<p>No Tasks Yet</p>{% endif %}  
+        
+    </tbody>
+</table>
+
+     
+
+
+{% endblock body %}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}|Teams{% endblock title %}
+{% block head %}
+<style>
+    form input,
+    form p {
+        width: 100%;
+        margin: 0.5vh auto;
+
+    }
+
+    label {
+        width: 100%;
+        font-weight: 600;
+        font-variant: small-caps;
+    }
+
+    tr {
+        text-align: center;
+    }
+</style>
+{% endblock head %}
+{% block body %}
+<div class="d-flex justify-content-center " style="height: 100%; width:100%">
+    <div class="d-flex flex-column justify-content-center align-items-center p-4" style="height: 100%; width: 70%;">
+        <div style="flex-grow: 1;">
+            {% if form %}
+            <form action="/team" method="post" class="bg-light p-4" style="border-radius: 5px;">
+                <h5 class="text-center">Create Your Team</h5>
+                {%csrf_token%}
+                <table>
+                    {{form.as_table}}
+                </table>
+                <button type="submit" class="btn btn-success d-flex m-auto">Create</button>
+            </form>{% else %}
+            <div class="bg-light p-4 rounded">
+                <h5>{{curteam.name|upper}}</h5>
+                <table class="container ">
+                    <!-- Link Section -->
+                    <tr>
+                        <td><b>InviteLink</b></td>
+                        <!-- Link to be copied -->
+                        <td><a href="/teams/{{curteam.code}}" id="link-to-copy" class="me-2 ml-2">{{link}}</a></td>
+                        <!-- Copy Button for Link -->
+                        <td><button id="copy-link-btn" class="ml-3"
+                                style="height: fit-content; width: fit-content; border:none">
+                                <i class="bi bi-clipboard p-0" style="font-size: 1vw;"></i>
+                            </button></td>
+                    </tr>
+
+                    <!-- Code Section -->
+                    <tr>
+                        <!-- Code to be copied -->
+                        <td><b>Team Code</b></td>
+                        <td><span id="code-to-copy" class="me-2">{{curteam.code}}</span></td>
+                        <!-- Copy Button for Code -->
+                        <td><button id="copy-code-btn" class="ml-3"
+                                style="height: fit-content; width: fit-content; border:none">
+                                <i class="bi bi-clipboard"></i>
+                            </button></td>
+                    </tr>
+                </table>
+                <hr>
+                {% for member in curteam.members.all %}
+                <p style="font-size: 1vw; font-weight: 800; text-transform: uppercase;">{{member}}
+                    {% if member in curteam.admins.all %}<small class='text-success'
+                        style="font-weight:600;">admin</small>{% endif %}</p>{% endfor %}
+
+            </div>{% endif %}
+        </div>
+
+        <hr class="w-100 border">
+        <form class="d-flex justify-content-around align-items-center b" action="/team">
+            <label>Join a Team via Code: <input type="text" name="teamcode" maxlength="8" minlength="8"></label>
+            <button type="submit" class="btn btn-success ml-3">Join</button>
+        </form>
+
+    </div>
+    <div class="d-flex flex-column border-left pl-3 m-3" style=" width: 30%;">
+        <h4 style="font-size: 3vw; font-variant: small-caps;font-weight: 600;border-bottom: 2px solid black ;">List Of
+            Your
+            Teams</h4>
+
+        {% if teams %}
+        {% for team in teams %}
+        <a href="/teaminfo?team={{team.code}}">
+            <div class="border-bottom  border-secondary bg-light p-2 mb-1 rounded">
+
+                <h6 class="d-flex justify-content-between">{{team.name|upper}}{% if user in team.admins.all %}<small
+                        class='text-success'>You are admin</small>{% endif %}
+                    <i class="bi bi-info-circle"></i>
+                </h6>
+
+                <hr class="m-0">
+                <span class="btn btn-info m-0 my-2 p-0 d-flex mx-auto"
+                    style="width: fit-content;height: fit-content;">Members:
+                    {{team.members.all|length}}</span>
+            </div>
+        </a>{% endfor %}
+        {% else %}
+        Create new teams now
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // Function to copy text to clipboard
+    function copyTextToClipboard(text) {
+        const tempInput = document.createElement('input');
+        document.body.appendChild(tempInput);
+        tempInput.value = text;
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+    }
+
+    // Copy link button functionality
+    document.getElementById('copy-link-btn').addEventListener('click', function () {
+        const linkText = document.getElementById('link-to-copy').textContent;
+        copyTextToClipboard(linkText);
+        alert('Link copied to clipboard!');
+    });
+
+    // Copy code button functionality
+    document.getElementById('copy-code-btn').addEventListener('click', function () {
+        const codeText = document.getElementById('code-to-copy').textContent;
+        copyTextToClipboard(codeText);
+        alert('Code copied to clipboard!');
+    });
+</script>
+
+{% endblock body %}
